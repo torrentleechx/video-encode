@@ -1,0 +1,34 @@
+{
+  "name": "Video Encoder Bot",
+  "description": "A Telegram bot to convert videos into x265/x264.",
+  "repository": "",
+  "logo": "https://telegra.ph/file/320e7b96b453157bcafa3.png",
+  "keywords": ["Telegram", "h265-hevc", "video-encoder"],
+  "env": {
+    "BOT_TOKEN": {
+      "description": "Get it from @BotFather"
+    },
+    "API_ID": {
+      "description": "Your API_ID, Get it from https://my.telegram.org/apps"
+    },
+    "API_HASH": {
+      "description": "Your API_HASH, Get it from https://my.telegram.org/apps"
+
+    },
+    "SUDO_USERS": {
+      "description": "List of sudo users ids, seperated by space.",
+      "value": "999197022 939425014"
+    }
+  },
+   "addons": [{
+    "plan": "heroku-postgresql"
+  }],
+   "buildpacks": [
+    {
+      "url": "heroku/python"
+    },
+    {
+      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
+    }
+  ]
+}
