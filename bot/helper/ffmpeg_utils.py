@@ -27,13 +27,18 @@ def encode(filepath):
         print('Skipping: no video codec reported')
         return None
     # Video transcode options
-    video_opts = '-c:v libx265 -preset ultrafast -pix_fmt yuv420p10le -threads 0'
+    video_opts_list = [
+          '-c:v libx265 -preset ultrafast -pix_fmt yuv420p10le -threads 0',
+    ]
     
     # Get the audio channel codec
     audio_opts = '-c:a aac -b:a 128k'
-    call(['ffmpeg', '-i', filepath] + video_opts.split() + audio_opts.split() + [output_filepath])
+    output_filepaths = []
+    for video_opts in video_opts_list:
+      call(['ffmpeg', '-i', filepath] + video_opts.split() + audio_opts.split() + [output_filepath])
+      output_filepaths.append(output_filepath)
     os.remove(filepath)
-    return output_filepath
+    return output_filepaths
 
 def get_thumbnail(in_filename, path, ttl):
     out_filename = os.path.join(path, str(time.time()) + ".jpg")
