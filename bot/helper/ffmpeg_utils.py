@@ -7,11 +7,6 @@ from subprocess import call, check_output
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 
-def get_codec(filepath, channel='v:0'):
-    output = check_output(['ffprobe', '-v', 'error', '-select_streams', channel,
-                            '-show_entries', 'stream=codec_name,codec_tag_string', '-of', 
-                            'default=nokey=1:noprint_wrappers=1', filepath])
-    return output.decode('utf-8').split()
 
 def encode(filepath):
     basefilepath, extension = os.path.splitext(filepath)
@@ -21,11 +16,6 @@ def encode(filepath):
         print('Skipping "{}": file already exists'.format(output_filepath))
         return None
     print(filepath)
-    # Get the video channel codec
-    video_codec = get_codec(filepath, channel='v:0')
-    if video_codec == []:
-        print('Skipping: no video codec reported')
-        return None
     # Video transcode options
     video_opts_list = [
           '-c:v libx265 -preset ultrafast -pix_fmt yuv420p10le -threads 0',
