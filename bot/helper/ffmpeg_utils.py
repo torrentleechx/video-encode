@@ -27,10 +27,10 @@ def encode(filepath):
         print('Skipping: no video codec reported')
         return None
     # Video transcode options
-    video_opts = '-c:v libx265 -vf scale=-640:360 -crf 31 -b:v 300k -tune psnr -preset veryslow'
+    #video_opts = '-c:v libx265 -vf scale=-640:360 -crf 31 -b:v 300k -tune psnr -preset veryslow'
     
     # Get the audio channel codec
-    audio_opts = '-c:a libopus -profile:a aac_he_v2 -ab 50k -ac 2 -vbr 2 -pix_fmt yuv420p'
+    #audio_opts = '-c:a libopus -profile:a aac_he_v2 -ab 50k -ac 2 -vbr 2 -pix_fmt yuv420p'
     call(['ffmpeg', '-i', filepath] + video_opts.split() + audio_opts.split() + [output_filepath])
     os.remove(filepath)
     return output_filepath
